@@ -52,12 +52,16 @@ def generate_single_document(directory, output_file):
 
                 if filename.endswith('.png'):
                     with open(filepath, 'rb') as img_file:
+                        outfile.write('![Embedded Image](data:image/png;base64,')
+
                         try:
                             full_file = img_file.read()
                             contents = base64.b64encode(full_file).decode('utf-8')
                             outfile.write(contents)
                         except:
                             pass
+
+                        outfile.write(')\n')
                 else:
                     with open(filepath, 'r') as txt_file:
                         for line in txt_file:
