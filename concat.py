@@ -10,9 +10,9 @@ def generate_unique_header(directory, start_tag='_FILE_'):
         dupe_found = False
         for root, _, files in os.walk(directory):
             for filename in files:
-                filepath = os.path.join(directory, filename)
+                filepath = os.path.join(root, filename)
+                print(filepath)
 
-                        
                 try:
                     with open(filepath, 'r', encoding='utf-8') as text_file:
                         proposed_line = f'# {current_tag}'
@@ -44,7 +44,7 @@ def generate_single_document(directory, output_file):
     with open(output_file, 'w', encoding='utf-8') as outfile:
         for root, _, files in os.walk(directory):
             for filename in files:
-                filepath = os.path.join(directory, filename)
+                filepath = os.path.join(root, filename)
                 if filepath == output_filepath:
                     continue
 
@@ -66,6 +66,8 @@ def generate_single_document(directory, output_file):
                     with open(filepath, 'r') as txt_file:
                         for line in txt_file:
                             outfile.write(line)
+
+                        outfile.write('\n')
 
 
 if __name__ == '__main__':
